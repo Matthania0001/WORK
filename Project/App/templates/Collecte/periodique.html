@@ -1,0 +1,688 @@
+{% extends 'base.html'%}
+{% comment %} {% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<div class="collect-section">
+    <div class="collect-header">
+        <h2><i class="fas fa-clipboard-list"></i> Collecte </h2>
+        <h2><span>Périodique</span></h2>
+    </div>
+  
+  <hr class="collect-divider">
+  <div class="sub-container">
+    <a href="?form_type=periodique" class="edit-btn"><i class="fas fa-calendar-alt"></i> Editer</a>
+    <form method="get" class="search-form">
+      {% csrf_token %}
+      {{ form.query }}
+      <button type="submit" class="search-btn">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+  </div>
+  {% if form_obj %}
+    <form method="post" class="periodique-form">
+      {% csrf_token %}
+      {% for field in form_obj %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          {{ field }}
+          {% if field.help_text %}
+            <small class="help-text">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <div class="error-text">{{ error }}</div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+      <div class="form-actions">
+        <button type="reset" class="btn-secondary">Effacer</button>
+        <button type="submit" class="btn-primary">Ajouter</button>
+      </div>
+    </form>
+  {% endif %}
+  <!-- 🔹 Fin du formulaire -->
+</div>
+<style>
+  .periodique-form {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 15px;
+      background: #fafafa;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  }
+  .periodique-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.periodique-form .form-group label {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.periodique-form .form-group input,
+.periodique-form .form-group select {
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.periodique-form .help-text {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+.periodique-form .error-text {
+  color: #d33;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.periodique-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.periodique-form .btn-primary {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.periodique-form .btn-secondary {
+  background: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.periodique-form .btn-primary:hover {
+  background: #0069d9;
+}
+
+.periodique-form .btn-secondary:hover {
+    background: #5a6268;
+  }
+    .collect-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 10px;
+        flex-wrap: wrap; 
+    }
+    .search-form {
+        display: inline-flex;
+        align-items: center;
+    }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 10px 0 0 10px;
+        font-size: 1rem;
+        width: 300px;
+        max-width: 80vw; /* s'adapte à la largeur mobile */
+        height: 25px;
+    }
+    .sub-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap; /* permet le passage à la ligne si l'espace vient à manquer */
+        gap: 10px;
+    }
+
+    .search-btn {
+        padding: 0rem;
+        border: 1px solid #ccc;
+        border-left: none;
+        background: #007bff;
+        color: #fff;
+        border-radius: 0 10px 10px 0;
+        cursor: pointer;
+        min-height: 41px;
+        max-width: 40px; 
+        min-width: 40px;
+        
+    }
+    span {
+        color: #007bff;
+    }
+    .sub-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .edit-btn {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    background: #007BFF;
+    color: #fff !important;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .edit-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+  }
+  @media (max-width: 600px) {
+  .sub-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-input {
+    width: 100%;
+    border-radius: 10px; /* tous bords arrondis */
+    margin-bottom: 10px;
+  }
+  .search-btn {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+  }
+}
+.messages {
+        margin: 15px 0;
+    }
+    
+    .alert {
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    
+    .form-notes {
+        margin-top: 20px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .form-notes th, .form-notes td {
+        padding: 8px;
+        vertical-align: top;
+        border: none;
+    }
+    
+    .form-notes th {
+        text-align: left;
+        white-space: nowrap;
+    }
+    
+    .errorlist {
+        color: #dc3545;
+        list-style: none;
+        padding: 0;
+        margin: 5px 0 0 0;
+        font-size: 0.9em;
+    }
+
+</style>
+{% endblock %} {% endcomment %}
+
+
+
+{% load static %}
+{% block content %}
+<div class="collect-section">
+  <div class="collect-header">
+    <h2><i class="fas fa-clipboard-list"></i> Collecte </h2>
+    <h2><span>Périodique</span></h2>
+  </div>
+
+  <hr class="collect-divider">
+  <div class="sub-container">
+    <a href="?form_type=periodique" class="edit-btn">
+      <i class="fas fa-calendar-alt"></i> Editer
+    </a>
+
+    <!-- 🔍 Formulaire de recherche GET -->
+    <form method="get" class="search-form">
+      {% csrf_token %}
+      {% for x in form_search %}
+        <div class="form-group1">
+          {{ x }}
+          <button type="submit" name="submit_search" class="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      {% endfor %}
+      
+    </form>
+  </div>
+
+  <!-- Créez le formulaire POST seulement si form_period existe -->
+  {% if form_period %}
+    <form method="post" class="periodique-form">
+      {% csrf_token %}
+      <div class = "info_enregistrement">
+        <h3>Informations d'enregistrement</h3>
+        <hr>
+        <div class = "form-group1">
+          {{ form_period.isbn.label_tag }}
+          
+          {{ form_period.isbn }}
+        </div>
+        {% if form_period.isbn.help_text %}
+            <div class = 'help'><small class="help-text">{{ form_period.isbn.help_text }}</small></div>
+        {% endif %}
+        {% if form_period.isbn.errors %}
+          <div class="error-text">{{ form_period.isbn.errors }}</div>
+        {% endif %}
+      </div>
+      <div class = "info_enregistrement">
+        <h3>Informations bibliographiques</h3>
+        <hr>
+        {% for y in  form_period %}
+          {% if y.name in champs1 %}
+          <div class = "form-group1">
+            {{ y.label_tag }}
+            {{ y }}
+          </div>
+            {% if y.help_text %}
+              <div class = 'help'><small class="help-text">{{ y.help_text }}</small></div>
+            {% endif %}
+            {% if y.errors %}
+              <div class="error-text">{{ y.errors }}</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class = "info_enregistrement">
+        <h3>Volume de la Source</h3>
+        <hr>
+        {% for y in  form_period %}
+          {% if y.name in champs2 %}
+          <div class = "form-group1">
+            {{ y.label_tag }}
+            {{ y }}
+          </div>
+            {% if y.help_text %}
+              <div class = 'help'><small class="help-text">{{ y.help_text }}</small></div>
+            {% endif %}
+            {% if y.errors %}
+              <div class="error-text">{{ y.errors }}</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class = "info_enregistrement">
+        <h3>Date et pagination</h3>
+        <hr>
+        {% for y in  form_period %}
+          {% if y.name in champs3 %}
+          <div class = "form-group1">
+            {{ y.label_tag }}
+            {{ y }}
+          </div>
+            {% if y.help_text %}
+              <div class = 'help'><small class="help-text">{{ y.help_text }}</small></div>
+            {% endif %}
+            {% if y.errors %}
+              <div class="error-text">{{ y.errors }}</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class = "info_enregistrement">
+        <h3>Données de classification</h3>
+        <hr>
+        {% for y in  form_period %}
+          {% if y.name in champs4 %}
+          <div class = "form-group1">
+            {{ y.label_tag }}
+            {{ y }}
+          </div>
+            {% if y.help_text %}
+              <div class = 'help'><small class="help-text">{{ y.help_text }}</small></div>
+            {% endif %}
+            {% if y.errors %}
+              <div class="error-text">{{ y.errors }}</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class = "info_enregistrement">
+        <h3>Réception et saisie</h3>
+        <hr>
+        {% for y in  form_period %}
+          {% if y.name in champs5 %}
+          <div class = "form-group1">
+            {{ y.label_tag }}
+            {{ y }}
+          </div>
+            {% if y.help_text %}
+              <div class = 'help'><small class="help-text">{{ y.help_text }}</small></div>
+            {% endif %}
+            {% if y.errors %}
+              <div class="error-text">{{ y.errors }}</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class = "info_enregistrement">
+        <h3>Envoi au traitement</h3>
+        <hr>
+        {% for y in  form_period %}
+          {% if y.name in champs6 %}
+          <div class = "form-group1">
+            {{ y.label_tag }}
+            {{ y }}
+          </div>
+            {% if y.help_text %}
+              <div class = 'help'><small class="help-text">{{ y.help_text }}</small></div>
+            {% endif %}
+            {% if y.errors %}
+              <div class="error-text">{{ y.errors }}</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      
+
+      <div class="form-actions">
+        <button type="reset" class="btn-secondary">Effacer</button>
+        <button type="submit" name="submit_period" class="btn-primary">Ajouter</button>
+      </div>
+    </form>
+  {% endif %}
+</div>
+
+
+<style>
+  .help{
+    margin: 0;
+    justify-content: right;
+    display: flex;
+  }
+  
+  .info_enregistrement {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    juustify-content: center;
+  }
+
+  .info_enregistrement h3 {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #1A5276;
+  }
+  .info_enregistrement hr {
+    width: 100%;
+    height: 3px;
+    background-color: #1A5276;
+    border: none;
+    margin: 0 auto 1.5rem;
+  }
+  .##{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .form-control {
+    width: 60%;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    height: 35px;
+    background-color: rgb(197, 237, 253);
+  }
+  .form-group1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    
+  }
+  @media (max-width: 768px) { /* Point de rupture pour mobile */
+  .form-group1 {
+    justify-content: center; /* Centrage sur mobile */
+    row-gap: 15px; /* Espacement vertical supplémentaire si retour à la ligne */
+  }
+  
+  /* Optionnel : pour forcer les éléments à occuper toute la largeur en colonne */
+  .form-group1 > * {
+    flex: 1 1 100%; /* Éléments en pleine largeur */
+    text-align: center; /* Centrage du contenu */
+    min-width: 0; /* Gestion des overflow */
+  }
+}
+  .periodique-form {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 15px;
+      background: #fafafa;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      
+  }
+  .periodique-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.periodique-form .form-group label {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.periodique-form .form-group input,
+.periodique-form .form-group select {
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.periodique-form .help-text {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+.periodique-form .error-text {
+  color: #d33;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.periodique-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.periodique-form .btn-primary {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.periodique-form .btn-secondary {
+  background: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.periodique-form .btn-primary:hover {
+  background: #0069d9;
+}
+
+.periodique-form .btn-secondary:hover {
+    background: #5a6268;
+  }
+    .collect-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 10px;
+        flex-wrap: wrap; 
+    }
+    .search-form {
+        display: inline-flex;
+        align-items: center;
+    }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 10px 0 0 10px;
+        font-size: 1rem;
+        width: 300px;
+        max-width: 80vw; /* s'adapte à la largeur mobile */
+        height: 25px;
+    }
+    .sub-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap; /* permet le passage à la ligne si l'espace vient à manquer */
+        gap: 10px;
+    }
+
+    .search-btn {
+        padding: 0rem;
+        border: 1px solid #ccc;
+        border-left: none;
+        background: #007bff;
+        color: #fff;
+        border-radius: 0 10px 10px 0;
+        cursor: pointer;
+        min-height: 41px;
+        max-width: 40px; 
+        min-width: 40px;
+        
+    }
+    span {
+        color: #007bff;
+    }
+    .sub-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .edit-btn {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    background: #007BFF;
+    color: #fff !important;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .edit-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+  }
+  @media (max-width: 600px) {
+  .sub-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-input {
+    width: 100%;
+    border-radius: 10px; /* tous bords arrondis */
+    margin-bottom: 10px;
+  }
+  .search-btn {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+  }
+}
+.messages {
+        margin: 15px 0;
+    }
+    
+    .alert {
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    
+    .form-notes {
+        margin-top: 20px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .form-notes th, .form-notes td {
+        padding: 8px;
+        vertical-align: top;
+        border: none;
+    }
+    
+    .form-notes th {
+        text-align: left;
+        white-space: nowrap;
+    }
+    
+    .errorlist {
+        color: #dc3545;
+        list-style: none;
+        padding: 0;
+        margin: 5px 0 0 0;
+        font-size: 0.9em;
+    }
+
+</style>
+{% endblock %}

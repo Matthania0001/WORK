@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="collect-section">
+  <h2><i class="fas fa-search"></i> Recherche</h2>
+  <hr class="collect-divider">
+
+  <div class="collect-buttons">
+    <button type="button" data-url="{% url 'accueil' %}">
+      <i class="fas fa-globe"></i> Recherche Web
+    </button>
+    <button>
+      <i class="fas fa-file-csv"></i> Recherche CSV
+    </button>
+  </div>
+</div>
+<style>
+  .collect-section h2 {
+  display: inline-flex;
+  align-items: center;
+  font-size: 2.5rem !important;
+  color: #1A5276;
+  gap: 0.5rem;
+  font-family: 'Italiana', serif;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.collect-section h2 i {
+  font-size: 3rem !important;
+  color: #2E86DE;
+}
+</style>
+<script src="{% static 'js/collecte.js' %}"></script>
+{% endblock %}

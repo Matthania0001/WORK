@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="collect-section">
+  <h2><i class="fas fa-clipboard-list"></i> Collecte</h2>
+  <hr class="collect-divider">
+
+  <div class="collect-buttons">
+    <a href="?form_type=periodique" class="collect-btn"><i class="fas fa-calendar-alt"></i> Périodique</a>
+    <a href="?form_type=monographie" class="collect-btn"><i class="fas fa-book"></i> Monographie</a>
+    <a href="?form_type=indexeur" class="collect-btn"><i class="fas fa-user-check"></i> Indexeur</a>
+    <a href="?form_type=indexation et contrôle" class="collect-btn"><i class="fas fa-tasks"></i> Indexation & Contrôle</a>
+    <a href="?form_type=prise de vue" class="collect-btn"><i class="fas fa-camera"></i> Prise de vue</a>
+  </div>
+
+  <!-- Container pour le formulaire -->
+  {% if form %}
+  <div id="form-container" class="login-container">
+    <h3>Connexion — {{ form_type|title }}</h3>
+    
+    {% if messages %}
+    <div class="alert alert-danger">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    
+    <form method="post">
+      {% csrf_token %}
+      {% for f in form %}
+      <div class="form-group" style="position:relative;">
+        {{ f.label_tag }}
+        {{ f }}
+        {% if f.errors %}
+          <div class="text-danger" style="display: flex; align-items: center;">
+            {{ f.errors }}
+          </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      <button type="submit" class="login-button">Entrer</button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  
+    .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+  .login-container {
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(8px);
+    padding: 2rem;
+    max-width: 360px;
+    margin: 2rem auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+  .login-container h3 {
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: #1A5276;
+  }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block;
+    color: #555;
+    margin-bottom: 0.3rem;
+  }
+  .form-group input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    background: rgb(197, 237, 253);
+    color: #333;
+  }
+  .login-button {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    background: #007BFF;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .login-button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+  }
+  .collect-btn {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    background: #007BFF;
+    color: #fff !important;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .collect-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+  }
+
+  .collect-section h2 {
+    display: inline-flex;
+    align-items: center;
+    font-size: 2.5rem !important;
+    color: #1A5276;
+    gap: 0.5rem;
+    font-family: 'Italiana', serif;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.collect-section h2 i {
+  font-size: 3rem !important;
+  color: #2E86DE;
+}
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('form_type')) {
+      const form = document.getElementById('form-container');
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  });
+  document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('form_type')) {
+      const form = document.getElementById('form-container');
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  });
+</script>
+{% endblock %}

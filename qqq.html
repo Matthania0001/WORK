@@ -1,0 +1,189 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="ar-ma">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+<CENTER><img src="cnd.gif" alt="Le Centre National de Documentation" border="0" WIDTH="775" HEIGHT="79"></a></td>
+</CENTER>
+<title>COLLECTE/PERIODIQUE </title>
+</head>
+<body background="back.gif" text="#0c3173" link="#FFFFFF" vlink="#FFFFFF" alink="#00bb00" >
+
+<table width="100%">
+<tr>
+<td width="30%"><center><h3><b><a href="index.php3"><font color="#0c3173">Accueil</a></b></h3></center></td>
+<td width="40%"><center><h3><b><a href="view.php3"><font color="#0c3173">Editer</a></b></h3></center></td>
+<td width="30%"><center><h3><b><a href="recherche.php3"><font color="#0c3173">Recherche</a></b></h3></center></td>
+</tr>
+</table>
+
+<form method="post" action="search.php3" name="form">
+<table width="100%" border="0" >
+<tr>
+<td width="20%">Titre de contrôle</td>
+<td width="50%">
+<input type="text" name="titr" size="80" maxlength="255"></td>
+<td width="30"><input type="submit" name="ok"
+value="Chercher"></td>
+</tr>
+</table >
+</form>
+<hr size=2 >
+<table width="100%">
+<tr>
+<td width=90%>
+<center><FONT SIZE=5 > <b>ARTICLE</b></font><center></td>
+<td width=10% align="right"><a href="nperiodique.php3" ><font color="#0c3173">Non&nbsp;Periodique>></a></td>
+</tr>
+</table><br><br>
+
+<form method="post" action="periodique.php3" name="form10">
+
+<input type=hidden name=radio1 value=p>
+<table width="100%" border="0" >
+<tr>
+<td width="11%">N° Enregistrement</td>
+<td width="55%">
+<input type="text" name="isbn" maxlength="12"
+size="12"> /2003
+</td>
+</tr>
+
+<tr>
+<td width="11%">Titre Article*</td>
+<td width="55%">
+<input type="text" name="stitre" size="100"
+maxlength="255">
+</td>
+</tr>
+
+<tr>
+<td width="11%">Auteur/Collectivite</td>
+<td width="55%">
+<input type="text" name="auteur" maxlength="255"
+size="100">
+</td>
+</tr>
+
+<tr>
+<td width="11%">Titre Source**</td>
+<td width="55%">
+<input type="text" name="titre" size="100" maxlength="255"><br>Titre du document générique</td>
+</tr>
+
+<tr>
+<td width="11%">Volume</td>
+<td width="55%">
+<table width="20%" border="0" >
+<tr>
+<td  width="9%"  align="right"><input type="text" name="vol" size="10" maxlength="25"></td>
+<td  width="9%" align="right">Tome</td>
+<td  width="9%" ><input type="text" name="tom" size="10" maxlength="25" ></td>
+<td  width="9%" align="right">N°</td>
+<td  width="9%" > <input type="text" name="num"  size="10" maxlength="25"></td>
+</tr>
+</table>
+</td></tr>
+
+<tr >
+<td width="11%" >Date d'edition</td>
+<td width="55%" align="left">
+<input type="text" name="dat_edit" size=10 maxlength="10">(ex: 2003-01-01)
+</td></tr>
+<tr>
+<td width="11%">Pagination      <b>p.</b></td>
+<td width="55%" align="left">
+<input type="text" name="pages" size="30" maxlength="30"> (ex: 20-25)
+</td>
+</tr>
+
+<tr>
+<td width="11%">Domaine:</td>
+<td width="55%">
+<select name="critere">
+<!-- Les options du domaine seraient ici -->
+</select>
+</td>
+</tr>
+
+<tr>
+<td width="11%">Langue:</td>
+<td width="55%">
+<select name="lang">
+<!-- Les options de langue seraient ici -->
+</select>
+</td>
+</tr>
+
+<tr>
+<td width="11%">Source Expéditrice</td>
+<td width="55%">
+<select name="src">
+<!-- Les options de source seraient ici -->
+</select>
+</td>
+</tr>
+
+<tr>
+<td width="11%">Type d'acquisition</td>
+<td width="55%">
+<select name="type">
+<!-- Les options de type seraient ici -->
+</select>
+</td>
+</tr>
+
+<tr>
+<td width="11%">Date de reception</td>
+<td width="55%">
+<input type="text" name="dat_recep" size="10"
+maxlength="10" >(ex: 2003-01-01)</td>
+</tr>
+
+<tr>
+<td width="11%">Responsable de Saisie</td>
+<td width="55%">
+<input type="text" name="saisi" maxlength="100"
+size="50">
+</td>
+</tr>
+
+<tr>
+<td width="11%">Date de Saisie</td>
+<td width="55%">
+<input type="text" name="dat_saisi" size="10"
+maxlength="10" >(ex: 2003-01-01)</td>
+</tr>
+
+<tr>
+<td width="11%">Date d'envoi au traitement</td>
+<td width="55%">
+<input type="text" name="dat_envoi" size="10"
+maxlength="10" >(ex: 2003-01-01)</td>
+</tr>
+
+</table>
+<br><br>
+<table width="100%" border="0">
+<tr>
+<td width="45%">
+<div align="center">
+<input type="reset" name="reset"
+value="Effacer">
+</div>
+</td>
+
+<td align="right">
+<input type="submit" name="envoyer"
+value="Ajouter"></table> </form>
+
+<table >
+<tr>
+<th ALIGN="left">* :</th><td> -Extrait d'ouvrage collectif<br>
+    -Extrait d'acte de congres<br>-Extrait de periodique
+  </td>
+<th ALIGN="left">** :</th><td>-Titre periodique<br>-Titre d'acte de congres<br>
+-Titre monographie<br> -Titre d'ouvrage collectif<br>
+  </td></tr>
+</table>
+</body>
+</html>

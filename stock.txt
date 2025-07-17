@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="collect-section">
+  <h2><i class="fas fa-clipboard-list"></i> Collecte</h2>
+  <hr class="collect-divider">
+
+  <div class="collect-buttons">
+    <button><i class="fas fa-calendar-alt"></i> Périodique</button>
+    <button><i class="fas fa-book"></i> Monographie</button>
+    <button><i class="fas fa-user-check"></i> Indexeur</button>
+    <button><i class="fas fa-tasks"></i> Indexation & Contrôle</button>
+    <button><i class="fas fa-camera"></i> Prise de vue</button>
+  </div>
+
+  <!-- Container pour insérer dynamiquement le formulaire -->
+  <div id="form-container"></div>
+</div>
+<script src="{% static 'js/collecte.js' %}"></script>
+{% endblock %}
+
+
+
+{% for field in form_period %}
+        <div class="form-group">
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% if field.help_text %}
+            <small class="help-text">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <div class="error-text">{{ error }}</div>
+          {% endfor %}
+        </div>
+      {% endfor %}

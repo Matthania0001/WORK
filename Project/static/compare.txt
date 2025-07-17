@@ -1,0 +1,9 @@
+admin | CREATE TABLE `admin` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `nom` varchar(50) NOT NULL,
+  `email` varchar(75) NOT NULL,
+  `login` varchar(20) NOT NULL,
+  `pass` varchar(32) NOT NULL,
+  `destination` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
